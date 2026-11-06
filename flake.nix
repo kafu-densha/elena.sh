@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
     flake-utils.url = "github:numtide/flake-utils";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pnpm2nix = {
       url = "github:FliegendeWurst/pnpm2nix-nzbr";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +20,7 @@
       self,
       nixpkgs,
       flake-utils,
+      treefmt-nix,
       pnpm2nix,
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -27,6 +32,23 @@
             pnpm2nix.overlays.default
           ];
         };
+
+        treefmtConfig = treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = "flake.nix";
+
+          programs.nixfmt.enable = true;
+          programs.deadnix.enable = true;
+          programs.statix.enable = true;
+          programs.prettier = {
+            enable = true;
+            settings = {
+              tabWidth = 2;
+            };
+            excludes = [
+              "pnpm-*.yaml"
+            ];
+          };
+        };
       in
       {
         packages.default = pkgs.mkPnpmPackage {
@@ -36,11 +58,26 @@
           packageJSON = ./package.json;
           pnpmLockYaml = ./pnpm-lock.yaml;
           pnpmWorkspaceYaml = ./pnpm-workspace.yaml;
-          nodejs = pkgs.nodejs;
-          pnpm = pkgs.pnpm;
+          inherit (pkgs) nodejs;
+          inherit (pkgs) pnpm;
         };
 
+        formatter = treefmtConfig.config.build.wrapper;
+        checks.formatting = treefmtConfig.config.build.check self;
+
         devShells.default = pkgs.mkShell {
+          shellHook = ''
+            # formatting hook
+            HOOKS_DIR=$(git rev-parse --git-path hooks)
+            mkdir -p $HOOKS_DIR
+            cat << 'EOF' > $HOOKS_DIR/pre-commit
+            #!/usr/bin/env bash
+            exec treefmt --fail-on-change
+            EOF
+            chmod +x $HOOKS_DIR/pre-commit
+          '';
+          nativeBuildInputs = [ treefmtConfig.config.build.wrapper ];
+
           packages = with pkgs; [
             nodejs
             pnpm
