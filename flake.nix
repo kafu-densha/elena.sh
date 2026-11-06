@@ -100,7 +100,7 @@
           packageJSON = ./package.json;
           pnpmLockYaml = ./pnpm-lock.yaml;
           pnpmWorkspaceYaml = ./pnpm-workspace.yaml;
-          pnpm = pkgs.pnpm_11;
+          pnpm = pkgs.pnpm_12;
           inherit (pkgs) nodejs;
         };
 
