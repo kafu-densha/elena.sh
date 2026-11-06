@@ -30,6 +30,8 @@
           inherit system;
           overlays = [
             pnpm2nix.overlays.default
+            (final: _prev: { prettier-plugin-astro = final.callPackage ./prettier-plugin-astro.nix { }; })
+            (final: _prev: { prettier-plugin-svelte = final.callPackage ./prettier-plugin-svelte.nix { }; })
           ];
         };
 
@@ -43,7 +45,44 @@
             enable = true;
             settings = {
               tabWidth = 2;
+              plugins = [
+                "${pkgs.prettier-plugin-astro}/lib/node_modules/prettier-plugin-astro/index.js"
+                "${pkgs.prettier-plugin-svelte}/lib/node_modules/prettier-plugin-svelte/plugin.js"
+              ];
+              overrides = [
+                {
+                  files = [ "*.astro" ];
+                  options.parser = "astro";
+                }
+                {
+                  files = [ "*.svelte" ];
+                  options.parser = "svelte";
+                }
+              ];
             };
+            includes = [
+              "*.astro"
+              "*.svelte"
+            ]
+            ++ [
+              #defaults
+              "*.cjs"
+              "*.css"
+              "*.html"
+              "*.js"
+              "*.json"
+              "*.json5"
+              "*.jsx"
+              "*.md"
+              "*.mdx"
+              "*.mjs"
+              "*.scss"
+              "*.ts"
+              "*.tsx"
+              "*.vue"
+              "*.yaml"
+              "*.yml"
+            ];
             excludes = [
               "pnpm-*.yaml"
             ];
@@ -51,6 +90,9 @@
         };
       in
       {
+        packages.prettier-plugin-astro = pkgs.prettier-plugin-astro;
+        packages.prettier-plugin-svelte = pkgs.prettier-plugin-svelte;
+
         packages.default = pkgs.mkPnpmPackage {
           pname = "elena.sh";
           version = "0.1.0";
@@ -58,8 +100,8 @@
           packageJSON = ./package.json;
           pnpmLockYaml = ./pnpm-lock.yaml;
           pnpmWorkspaceYaml = ./pnpm-workspace.yaml;
+          pnpm = pkgs.pnpm_11;
           inherit (pkgs) nodejs;
-          inherit (pkgs) pnpm;
         };
 
         formatter = treefmtConfig.config.build.wrapper;
