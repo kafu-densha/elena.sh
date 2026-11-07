@@ -1,0 +1,105 @@
+---
+import OutLink from "@components/OutLink.astro";
+
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const imageGlob = import.meta.glob<{ default: ImageMetadata }>(
+  "@assets/buttons/*",
+  { eager: true },
+);
+
+// have images addressable by filename not full path
+const images = Object.fromEntries(
+  Object.entries(imageGlob).map(([key, value]) => {
+    const filename = key.split("/").pop() || "";
+    return [filename, value.default];
+  }),
+);
+
+interface Button {
+  src: string;
+  alt: string;
+  href?: string;
+}
+
+const buttons: Button[] = [
+  // {
+  //   src: "/assets/buttons/elenah.gif",
+  //   alt: "elenah",
+  //   href: "#",
+  // },
+  {
+    src: "ocf.png",
+    alt: "hosted by the OCF",
+    href: "https://ocf.berkeley.edu",
+  },
+  // {
+  //   src: "ocfdecal.png",
+  //   alt: "OCF DeCal",
+  //   href: "https://decal.ocf.berkeley.edu/",
+  // },
+  {
+    src: "nixos.png",
+    alt: "powered by NixOS",
+    href: "https://nixos.org",
+  },
+  {
+    src: "ericgu.png",
+    alt: "ericgu",
+    href: "https://ericgu.org",
+  },
+  {
+    src: "jaysa.net.png",
+    alt: "jaysa.net",
+    href: "https://jaysa.net",
+  },
+  {
+    src: "rsang.png",
+    alt: "rsang",
+    href: "https://rsang.me",
+  },
+  {
+    src: "storce.png",
+    alt: "storce",
+    href: "https://joewang.me",
+  },
+  {
+    src: "leeleexs.png",
+    alt: "leeleexs",
+    href: "https://leeleexs.carrd.co/",
+  },
+  {
+    src: "jingwen.gif",
+    alt: "jingwenyang",
+    href: "https://noonelovesyou.org/",
+  },
+  {
+    src: "felix.png",
+    alt: "felix",
+    href: "https://ibuprofenbunny.neocities.org/",
+  },
+  {
+    src: "kinn.gif",
+    alt: "kinn",
+    href: "https://classic.kinn.dev/",
+  },
+];
+---
+
+<div class="bg-base-100 mt-6 p-4 rounded-lg">
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    {buttons.map((button) => (
+      <OutLink href={button.href ?? ""}>
+        <Image
+          src={images[button.src]}
+          alt={button.alt}
+          width="88"
+          height="31"
+          class="btn p-0"
+          style="image-rendering: pixelated;"
+        />
+      </OutLink>
+    ))}
+  </div>
+</div>

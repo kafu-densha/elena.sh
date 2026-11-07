@@ -1,2 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Base & Backgrounds */
+  --color-base-100: #15142f; /* bg */
+  --color-base-200: #1d1b40; /* slightly lighter than bg for UI depth */
+  --color-base-300: #646378; /* br_black */
+  --color-base-content: #f0ebff; /* fg */
+
+  /* Brand Colors */
+  --color-primary: #7b6fd9; /* blue */
+  --color-primary-content: #ffffff; /* br_white */
+
+  --color-secondary: #e070b8; /* magenta */
+  --color-secondary-content: #ffffff; /* br_white */
+
+  --color-accent: #e19dce; /* selection */
+  --color-accent-content: #15142f; /* bg */
+
+  /* Neutral */
+  --color-neutral: #646378; /* br_black */
+  --color-neutral-content: #f0ebff; /* fg */
+
+  /* State Colors */
+  --color-info: #9aaee8; /* cyan */
+  --color-info-content: #15142f; /* bg */
+
+  --color-success: #8fbf9f; /* green */
+  --color-success-content: #15142f; /* bg */
+
+  --color-warning: #e8c547; /* yellow */
+  --color-warning-content: #15142f; /* bg */
+
+  --color-error: #e36981; /* red */
+  --color-error-content: #ffffff; /* br_white */
+
+  /* border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+
+  /* effects */
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Base & Backgrounds (Inverted) */
+  --color-base-100: #faf9ff; /* A crisp, slightly tinted white for maximum legibility */
+  --color-base-200: #f0ebff; /* The original fg color (#f0ebff) used as a soft secondary background */
+  --color-base-300: #e2dbf5; /* A slightly darker shade for borders, dividers, and UI depth */
+  --color-base-content: #15142f; /* The original bg color (#15142f) repurposed for high-contrast text */
+
+  /* Brand Colors */
+  --color-primary: #7b6fd9; /* blue */
+  --color-primary-content: #ffffff; /* White text contrasts well against this blue */
+
+  --color-secondary: #e070b8; /* magenta */
+  --color-secondary-content: #15142f; /* Dark text is used here because pastel magenta doesn't contrast enough with white */
+
+  --color-accent: #e19dce; /* selection */
+  --color-accent-content: #15142f; /* Dark text for legibility on the light pink accent */
+
+  /* Neutral */
+  --color-neutral: #646378; /* br_black */
+  --color-neutral-content: #ffffff;
+
+  /* State Colors */
+  --color-info: #9aaee8; /* cyan */
+  --color-info-content: #15142f; /* Dark text on pastel cyan */
+
+  --color-success: #8fbf9f; /* green */
+  --color-success-content: #15142f; /* Dark text on pastel green */
+
+  --color-warning: #e8c547; /* yellow */
+  --color-warning-content: #15142f; /* Dark text on yellow */
+
+  --color-error: #e36981; /* red */
+  --color-error-content: #ffffff; /* White text works well on this deeper red */
+
+  /* border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+
+  /* effects */
+  --depth: 1;
+  --noise: 0;
+}
+
+@theme {
+  --font-sans:
+    "Iosevka Charon", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono:
+    "Iosevka Charon Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+}
