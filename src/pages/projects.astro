@@ -1,19 +1,15 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Nav from "@components/Nav.astro";
 ---
 
 <Layout>
-  <div class="flex flex-col h-screen overflow-hidden">
-    <Nav path={Astro.url.pathname} />
-    <div class="hero bg-base-200 flex-1 overflow-y-auto">
-      <div class="hero-content text-center">
-        <div class="max-w-md">
-          <div class="bg-base-100 rounded-lg p-6">
-            <h1 class="text-4xl md:text-5xl font-bold font-mono text-nowrap">
-              Projects
-            </h1>
-          </div>
+  <div class="hero bg-base-200 flex-1 overflow-y-auto">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <div class="bg-base-100 rounded-lg p-6">
+          <h1 class="text-4xl md:text-5xl font-bold font-mono text-nowrap">
+            Projects
+          </h1>
         </div>
       </div>
     </div>
