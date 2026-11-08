@@ -22,6 +22,12 @@ const navItems: NavItem[] = [
 ];
 
 const path = Astro.props.path as string;
+function normalizePath(path: string): string {
+  if (path === "/") {
+    return "/";
+  }
+  return path.replace(/\/$/, "");
+}
 ---
 
 <div class="navbar bg-base-100 shadow-sm shrink-0 font-mono font-bold">
@@ -32,21 +38,21 @@ const path = Astro.props.path as string;
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1 flex items-center justify-center gap-4">
-      <div class="mx-2">
-        <ThemeToggle client:load />
-      </div>
-
+      <ThemeToggle client:load />
       {navItems.map((item) => (
-        <button
-          class:list={[
-            "btn",
-            "btn-accent",
-            path == item.path ? "btn-outline" : "",
-            path != item.path ? "hidden sm:block" : "",
-          ]}
-        >
-          <a href={item.path}>{item.name}</a>
-        </button>
+        <a href={item.path}>
+          <button
+            class:list={[
+              "btn",
+              "btn-accent",
+              normalizePath(path) != normalizePath(item.path)
+                ? "btn-outline hidden sm:block"
+                : "",
+            ]}
+          >
+            {item.name}
+          </button>
+        </a>
       ))}
     </ul>
   </div>
