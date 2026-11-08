@@ -40,13 +40,20 @@ function normalizePath(path: string): string {
     <ul class="menu menu-horizontal px-1 flex items-center justify-center gap-4">
       <ThemeToggle client:load />
       {navItems.map((item) => (
-        <a href={item.path}>
+        <a
+          href={item.path}
+          class={
+            normalizePath(path) != normalizePath(item.path)
+              ? "hidden sm:block"
+              : ""
+          }
+        >
           <button
             class:list={[
               "btn",
               "btn-accent",
               normalizePath(path) != normalizePath(item.path)
-                ? "btn-outline hidden sm:block"
+                ? "btn-outline"
                 : "",
             ]}
           >
