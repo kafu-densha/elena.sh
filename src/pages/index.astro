@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import ThemeToggle from "@components/ThemeToggle.svelte";
+import Nav from "@components/Nav.astro";
 import Buttons from "@components/Buttons.astro";
 import EmailButton from "@components/EmailButton.svelte";
 import OutLink from "@components/OutLink.astro";
@@ -8,36 +8,36 @@ import "@styles/index.css";
 ---
 
 <Layout>
-  <div class="hero bg-base-200 min-h-dvh">
-    <div class="hero-content text-center">
-      <div class="max-w-md">
-        <div class="bg-accent-content rounded-lg p-6">
-          <h1 class="text-4xl md:text-5xl font-bold font-mono text-white text-nowrap">
-            Hi, I'm <span class="text-secondary">Elena</span>&nbsp;
-            <span class="blinking-cusor">_</span>
-          </h1>
-        </div>
+  <div class="flex flex-col h-screen overflow-hidden">
+    <Nav path={Astro.url.pathname} />
+    <div class="hero bg-base-200 flex-1 overflow-y-auto">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <div class="bg-base-100 rounded-lg p-6">
+            <h1 class="text-4xl md:text-5xl font-bold font-mono text-nowrap">
+              Hi, I'm <span class="text-secondary">Elena</span>&nbsp;
+              <span class="blinking-cusor">_</span>
+            </h1>
+          </div>
 
-        <div class="mt-6">
-          <a href="/photography" class="btn btn-primary">
-            📷 Photography
-          </a>
-          <a href="/projects" class="btn btn-secondary ml-4">
-            🖥️ Projects
-          </a>
-        </div>
-        <div class="mt-6">
-          <EmailButton client:visible />
-          <OutLink
-            href="https://github.com/kafu-densha"
-            class="btn btn-outline ml-4"
-          >
-            GitHub
-          </OutLink>
-        </div>
-        <Buttons />
-        <div class="mt-6">
-          <ThemeToggle client:load />
+          <div class="mt-6">
+            <a href="/photography" class="btn btn-primary">
+              📷 Photography
+            </a>
+            <a href="/projects" class="btn btn-secondary ml-4">
+              🖥️ Projects
+            </a>
+          </div>
+          <div class="mt-6">
+            <EmailButton client:visible />
+            <OutLink
+              href="https://github.com/kafu-densha"
+              class="btn btn-outline ml-4"
+            >
+              GitHub
+            </OutLink>
+          </div>
+          <Buttons />
         </div>
       </div>
     </div>

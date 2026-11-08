@@ -1,0 +1,53 @@
+---
+import ThemeToggle from "@components/ThemeToggle.svelte";
+
+interface NavItem {
+  path: string;
+  name: string;
+}
+
+const navItems: NavItem[] = [
+  {
+    path: "/",
+    name: "About",
+  },
+  {
+    path: "/photography",
+    name: "Photography",
+  },
+  {
+    path: "/projects",
+    name: "Projects",
+  },
+];
+
+const path = Astro.props.path as string;
+---
+
+<div class="navbar bg-base-100 shadow-sm shrink-0 font-mono font-bold">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" href="/">
+      elena.sh
+    </a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1 flex items-center justify-center gap-4">
+      <div class="mx-2">
+        <ThemeToggle client:load />
+      </div>
+
+      {navItems.map((item) => (
+        <button
+          class:list={[
+            "btn",
+            "btn-accent",
+            path == item.path ? "btn-outline" : "",
+            path != item.path ? "hidden sm:block" : "",
+          ]}
+        >
+          <a href={item.path}>{item.name}</a>
+        </button>
+      ))}
+    </ul>
+  </div>
+</div>
