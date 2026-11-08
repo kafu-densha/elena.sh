@@ -15,6 +15,13 @@ import "@styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <Font cssVariable="--font-iosevka" preload />
     <Font cssVariable="--font-iosevka-mono" preload />
+    <script is:inline>
+      // load theme before page load so it doesn't flash with wrong color
+      const savedTheme = localStorage.getItem("theme");
+      const theme = savedTheme || "dark";
+
+      document.documentElement.setAttribute("data-theme", theme);
+    </script>
     <title>elena.sh</title>
   </head>
   <body>

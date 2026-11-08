@@ -58,11 +58,16 @@
                   files = [ "*.svelte" ];
                   options.parser = "svelte";
                 }
+                {
+                  files = [ "*.svg" ];
+                  options.parser = "html";
+                }
               ];
             };
             includes = [
               "*.astro"
               "*.svelte"
+              "*.svg"
             ]
             ++ [
               #defaults
