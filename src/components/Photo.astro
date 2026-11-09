@@ -1,0 +1,18 @@
+---
+import { Picture } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
+import OutLink from "@components/OutLink.astro";
+
+interface Props extends HTMLAttributes<"picture"> {
+  src: ImageMetadata;
+  alt: string;
+}
+
+const { src, alt, ...attrs } = Astro.props;
+
+const fullSizeUrl = src.src;
+---
+
+<OutLink href={fullSizeUrl}>
+  <Picture src={src} alt={alt} {...attrs} />
+</OutLink>

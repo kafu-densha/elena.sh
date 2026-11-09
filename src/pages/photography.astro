@@ -1,15 +1,40 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Photo from "@components/Photo.astro";
+import trainPhoto from "@assets/photos/DSC05223.jpg";
 ---
 
 <Layout>
   <div class="hero bg-base-200 flex-1 overflow-y-auto">
     <div class="hero-content text-center">
-      <div class="max-w-md">
+      <div class="max-w-2xl">
         <div class="bg-base-100 rounded-lg p-6">
           <h1 class="text-4xl md:text-5xl font-bold font-mono text-nowrap">
             Photography
           </h1>
+        </div>
+
+        <div class="mt-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+            <Photo src={trainPhoto} alt="train :)" />
+          </div>
         </div>
       </div>
     </div>
