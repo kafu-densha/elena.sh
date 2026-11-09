@@ -32,6 +32,7 @@
             pnpm2nix.overlays.default
             (final: _prev: { prettier-plugin-astro = final.callPackage ./prettier-plugin-astro.nix { }; })
             (final: _prev: { prettier-plugin-svelte = final.callPackage ./prettier-plugin-svelte.nix { }; })
+            (final: _prev: { "elena.sh" = final.callPackage ./default.nix { }; })
           ];
         };
 
@@ -68,6 +69,7 @@
               "*.astro"
               "*.svelte"
               "*.svg"
+              "*.mts"
             ]
             ++ [
               #defaults
@@ -98,16 +100,7 @@
         packages.prettier-plugin-astro = pkgs.prettier-plugin-astro;
         packages.prettier-plugin-svelte = pkgs.prettier-plugin-svelte;
 
-        packages.default = pkgs.mkPnpmPackage {
-          pname = "elena.sh";
-          version = "0.1.0";
-          src = ./.;
-          packageJSON = ./package.json;
-          pnpmLockYaml = ./pnpm-lock.yaml;
-          pnpmWorkspaceYaml = ./pnpm-workspace.yaml;
-          pnpm = pkgs.pnpm_12;
-          inherit (pkgs) nodejs;
-        };
+        packages.default = pkgs."elena.sh";
 
         formatter = treefmtConfig.config.build.wrapper;
         checks.formatting = treefmtConfig.config.build.check self;
