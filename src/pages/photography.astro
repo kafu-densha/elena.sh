@@ -1,14 +1,33 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Photo from "@components/Photo.astro";
-import trainPhoto from "@assets/photos/DSC05223.jpg";
+
+function genPath(name: string) {
+  return "/src/assets/photos/" + name;
+}
+
+interface ImageInfo {
+  src: string;
+  alt: string;
+}
+
+const images: ImageInfo[] = [
+  {
+    src: genPath("DSC05223.jpg"),
+    alt: "train :)",
+  },
+  {
+    src: genPath("DSC05223.jpg"),
+    alt: "train 2!!!",
+  },
+];
 ---
 
 <Layout>
   <div class="hero bg-base-200 flex-1 overflow-y-auto">
-    <div class="hero-content text-center">
+    <div class="hero-content">
       <div class="max-w-2xl">
-        <div class="bg-base-100 rounded-lg p-6">
+        <div class="bg-base-100 rounded-lg p-6 text-center">
           <h1 class="text-4xl md:text-5xl font-bold font-mono text-nowrap">
             Photography
           </h1>
@@ -16,24 +35,9 @@ import trainPhoto from "@assets/photos/DSC05223.jpg";
 
         <div class="mt-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
-            <Photo src={trainPhoto} alt="train :)" />
+            {images.map((image) => (
+              <Photo src={image.src} alt={image.alt} />
+            ))}
           </div>
         </div>
       </div>

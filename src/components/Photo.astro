@@ -2,17 +2,59 @@
 import { Picture } from "astro:assets";
 import type { HTMLAttributes } from "astro/types";
 import OutLink from "@components/OutLink.astro";
+import type { ImageMetadata } from "astro";
 
 interface Props extends HTMLAttributes<"picture"> {
-  src: ImageMetadata;
+  src: string;
   alt: string;
 }
 
 const { src, alt, ...attrs } = Astro.props;
 
-const fullSizeUrl = src.src;
+const imageGlob = import.meta.glob<{ default: ImageMetadata }>(
+  "@assets/photos/*",
+);
+
+if (!imageGlob[src]) {
+  throw new Error(`"${src}" does not exist"`);
+}
+
+const { default: resolvedImage } = await imageGlob[src]();
+
+const fullSizeUrl = resolvedImage.src;
+
+const { $id } = Astro.locals;
+const dialogId = $id("dialog");
 ---
 
-<OutLink href={fullSizeUrl}>
-  <Picture src={src} alt={alt} {...attrs} />
-</OutLink>
+<script is:inline>
+  function modal_click(id) {
+    document.getElementById(id).showModal();
+  }
+</script>
+
+<button onclick={"modal_click('" + dialogId + "');"}>
+  <Picture src={resolvedImage} alt={alt} class="rounded-md" {...attrs} />
+</button>
+
+<dialog id={dialogId} class="modal">
+  <div class="modal-box card bg-base-100 shadow-sm">
+    <OutLink href={fullSizeUrl}>
+      <Picture src={resolvedImage} alt={alt} class="rounded-md" {...attrs} />
+    </OutLink>
+    <div class="card-body p-0 pt-6">
+      <h2 class="card-title">{alt}</h2>
+      <div class="card-side">December 12th, 2026 - 12:59</div>
+      <!-- <p>
+          Description
+      </p> -->
+      <div class="card-actions justify-left mt-3">
+        <div class="badge badge-outline">Aperture: f/16</div>
+        <div class="badge badge-outline">Shutter: 1/1000</div>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
