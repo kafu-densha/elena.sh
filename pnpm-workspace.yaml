@@ -1,3 +1,5 @@
+allowBuilds:
+  exifreader: true
 minimumReleaseAgeExclude:
   - '@astrojs/internal-helpers@0.13.1'
   - '@astrojs/markdown-satteri@0.4.7'

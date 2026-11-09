@@ -3,13 +3,18 @@ import { Picture } from "astro:assets";
 import type { HTMLAttributes } from "astro/types";
 import OutLink from "@components/OutLink.astro";
 import type { ImageMetadata } from "astro";
+import ExifReader from "exifreader";
+import fs from "node:fs/promises";
+import path from "path";
+import { fileURLToPath } from "node:url";
 
 interface Props extends HTMLAttributes<"picture"> {
   src: string;
   alt: string;
+  location?: string;
 }
 
-const { src, alt, ...attrs } = Astro.props;
+const { src, alt, location, ...attrs } = Astro.props;
 
 const imageGlob = import.meta.glob<{ default: ImageMetadata }>(
   "@assets/photos/*",
@@ -25,6 +30,34 @@ const fullSizeUrl = resolvedImage.src;
 
 const { $id } = Astro.locals;
 const dialogId = $id("dialog");
+
+// exif
+const imagePath = path.join(
+  process.cwd(),
+  fileURLToPath(new URL(src, import.meta.url)),
+);
+const fileBuffer = await fs.readFile(imagePath);
+const tags = ExifReader.load(fileBuffer);
+
+const make = tags["Make"]?.description;
+const model = tags["Model"]?.description;
+const dateTime = tags["DateTimeOriginal"]?.description;
+const focalLength = tags["FocalLengthIn35mmFilm"]?.description;
+const aperture = tags["FNumber"]?.description;
+const exposure = tags["ExposureTime"]?.description;
+const iso = tags["ISOSpeedRatings"]?.description;
+const lensInfo = tags["LensSpecification"]?.description;
+
+const exifData = {
+  Make: make,
+  Model: model,
+  DateTimeOriginal: dateTime,
+  FocalLength: focalLength,
+  Aperture: aperture,
+  Exposure: exposure,
+  ISO: iso,
+  LensInfo: lensInfo,
+};
 ---
 
 <script is:inline>
@@ -44,13 +77,16 @@ const dialogId = $id("dialog");
     </OutLink>
     <div class="card-body p-0 pt-6">
       <h2 class="card-title">{alt}</h2>
-      <div class="card-side">December 12th, 2026 - 12:59</div>
-      <!-- <p>
-          Description
-      </p> -->
-      <div class="card-actions justify-left mt-3">
-        <div class="badge badge-outline">Aperture: f/16</div>
-        <div class="badge badge-outline">Shutter: 1/1000</div>
+      {location && <div class="card-side text-md font-mono">{location}</div>}
+      <div class="card-side text-md font-mono mb-1">
+        {exifData.DateTimeOriginal}
+      </div>
+      <div class="card-actions justify-left font-mono">
+        <div class="badge badge-outline">ISO {exifData.ISO}</div>
+        <div class="badge badge-outline">{exifData.FocalLength}</div>
+        <div class="badge badge-outline">{exifData.Aperture}</div>
+        <div class="badge badge-outline">{exifData.Exposure}sec</div>
+        <div class="badge badge-outline">{exifData.LensInfo}</div>
       </div>
     </div>
   </div>

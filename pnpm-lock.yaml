@@ -29,6 +29,9 @@ importers:
       daisyui:
         specifier: ^5.7.50
         version: 5.7.50
+      exifreader:
+        specifier: ^4.54.0
+        version: 4.54.0
       svelte:
         specifier: ^5.57.3
         version: 5.57.3
@@ -699,6 +702,10 @@ packages:
   '@ungap/structured-clone@1.4.0':
     resolution: {integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==}
 
+  '@xmldom/xmldom@0.9.12':
+    resolution: {integrity: sha512-5AXjrcMClTryPe9LgZrygpB1lj7s0S9E0+W+AHaVKAVyHanafK86iPSvG5xHVSp/jC+VH1UXu0TAEmY279xH7A==}
+    engines: {node: '>=14.6'}
+
   acorn@8.19.0:
     resolution: {integrity: sha512-oJlA3XiRm7Cyk6qFD2Jn8ak9B7jSy0qy00ADO3+8dpT0LSjFihQYv4C02LFCSYJV3Q37xYwwRy5m+IpIiUzqWw==}
     engines: {node: '>=0.4.0'}
@@ -877,6 +884,10 @@ packages:
     peerDependenciesMeta:
       '@typescript-eslint/types':
         optional: true
+
+  exifreader@4.54.0:
+    resolution: {integrity: sha512-7mJXhbDMwLnuRtBaId8dIR5S8Hhvz3R1Qjvo3MIXtwFGRr+vbYdVVjbyfQ5F1FsBKVjog6aKx+hcf8yqNHxJUg==}
+    hasBin: true
 
   extend@3.0.2:
     resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==}
@@ -2032,6 +2043,9 @@ snapshots:
 
   '@ungap/structured-clone@1.4.0': {}
 
+  '@xmldom/xmldom@0.9.12':
+    optional: true
+
   acorn@8.19.0: {}
 
   am-i-vibing@0.5.0:
@@ -2252,6 +2266,10 @@ snapshots:
   esrap@2.4.0:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
+
+  exifreader@4.54.0:
+    optionalDependencies:
+      '@xmldom/xmldom': 0.9.12
 
   extend@3.0.2: {}
 

@@ -9,17 +9,19 @@ function genPath(name: string) {
 interface ImageInfo {
   src: string;
   alt: string;
+  location?: string;
 }
 
 const images: ImageInfo[] = [
   {
     src: genPath("DSC05223.jpg"),
-    alt: "train :)",
+    alt: "Marunouchi line crossing the Kanda River",
+    location: "Ochanomizu - Tokyo, Japan",
   },
-  {
-    src: genPath("DSC05223.jpg"),
-    alt: "train 2!!!",
-  },
+  // {
+  //   src: genPath("DSC05223.jpg"),
+  //   alt: "train!!!",
+  // },
 ];
 ---
 
@@ -36,7 +38,7 @@ const images: ImageInfo[] = [
         <div class="mt-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {images.map((image) => (
-              <Photo src={image.src} alt={image.alt} />
+              <Photo {...image} />
             ))}
           </div>
         </div>
