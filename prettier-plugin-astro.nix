@@ -7,6 +7,7 @@
   pnpmConfigHook,
   stdenv,
 }:
+
 let
   pnpm = pnpm_11;
 in
@@ -45,9 +46,10 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/node_modules/prettier-plugin-astro
-    cp -r dist/* $out/lib/node_modules/prettier-plugin-astro
-    cp -r node_modules $out/lib/node_modules/prettier-plugin-astro
+    OUT_DIR=$out/lib/node_modules/prettier-plugin-astro
+    mkdir -p $OUT_DIR
+    cp -r dist/* $OUT_DIR
+    cp -r node_modules $OUT_DIR
 
     runHook postInstall
   '';
@@ -56,7 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Prettier plugin for Astro";
     homepage = "https://github.com/withastro/prettier-plugin-astro";
     license = lib.licenses.mit;
-    # maintainers = with lib.maintainers; [ ];
     mainProgram = "prettier-plugin-astro";
   };
 })

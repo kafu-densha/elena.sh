@@ -7,6 +7,7 @@
   pnpmConfigHook,
   stdenv,
 }:
+
 let
   pnpm = pnpm_11;
 in
@@ -43,20 +44,20 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   installPhase = ''
-            runHook preInstall
+    runHook preInstall
 
-            mkdir -p $out/lib/node_modules/prettier-plugin-svelte
-    	cp plugin.js $out/lib/node_modules/prettier-plugin-svelte/plugin.js
-            cp -r node_modules $out/lib/node_modules/prettier-plugin-svelte
+    OUT_DIR=$out/lib/node_modules/prettier-plugin-svelte
+    mkdir -p $OUT_DIR
+    cp plugin.js $OUT_DIR/plugin.js
+    cp -r node_modules $OUT_DIR
 
-            runHook postInstall
+    runHook postInstall
   '';
 
   meta = {
     description = "Prettier plugin for Svelte";
     homepage = "https://github.com/sveltejs/prettier-plugin-svelte";
     license = lib.licenses.mit;
-    # maintainers = wisha256-+a/NSZVBJgbH8izBmCYnz2TGzK5JzFoAcf75UrzmMSA=th lib.maintainers; [ ];
     mainProgram = "prettier-plugin-svelte";
   };
 })
