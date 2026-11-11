@@ -21,7 +21,7 @@
     }
     mouseLeaveTimeout = setTimeout(() => {
       clicked = false;
-    }, 1500);
+    }, 3000);
   }
 </script>
 
