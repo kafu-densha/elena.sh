@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineConfig, fontProviders } from "astro/config";
 import svelte from "@astrojs/svelte";
 import tailwindcss from "@tailwindcss/vite";
+import { vitePreprocess } from "@astrojs/svelte";
 
 import type { FontData } from "astro:assets";
 
@@ -61,7 +62,11 @@ function generateVariants(font: string, filter: FontDataFilter) {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [svelte()],
+  integrations: [
+    svelte({
+      preprocess: vitePreprocess(),
+    }),
+  ],
 
   vite: {
     plugins: [tailwindcss()],
