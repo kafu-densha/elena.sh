@@ -27,7 +27,11 @@ import "@styles/global.css";
   <body>
     <div class="flex flex-col min-h-screen">
       <Nav path={Astro.url.pathname} />
-      <slot />
+      <div class="hero bg-base-200 flex-1 overflow-y-auto">
+        <div class="hero-content">
+          <slot />
+        </div>
+      </div>
       <Footer />
     </div>
   </body>
