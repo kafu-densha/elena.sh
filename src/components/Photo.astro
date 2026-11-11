@@ -49,8 +49,7 @@ const iso = tags["ISOSpeedRatings"]?.description;
 const lensInfo = tags["LensSpecification"]?.description;
 
 const exifData = {
-  Make: make,
-  Model: model,
+  Camera: make + " " + model,
   DateTimeOriginal: dateTime,
   FocalLength: focalLength,
   Aperture: aperture,
@@ -87,6 +86,7 @@ const exifData = {
         <div class="badge badge-outline">{exifData.Aperture}</div>
         <div class="badge badge-outline">{exifData.Exposure}sec</div>
         <div class="badge badge-outline">{exifData.LensInfo}</div>
+        <div class="badge badge-outline">{exifData.Camera}</div>
       </div>
     </div>
   </div>
