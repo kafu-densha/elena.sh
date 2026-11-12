@@ -22,11 +22,13 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [
-            (final: _prev: { prettier-plugin-astro = final.callPackage ./prettier-plugin-astro.nix { }; })
-            (final: _prev: { prettier-plugin-svelte = final.callPackage ./prettier-plugin-svelte.nix { }; })
-            (final: _prev: { "elena.sh" = final.callPackage ./default.nix { }; })
-          ];
+          overlays = nixpkgs.lib.singleton (
+            final: _prev: {
+              prettier-plugin-astro = final.callPackage ./prettier-plugin-astro.nix { };
+              prettier-plugin-svelte = final.callPackage ./prettier-plugin-svelte.nix { };
+              "elena.sh" = final.callPackage ./default.nix { };
+            }
+          );
         };
 
         treefmtConfig = treefmt-nix.lib.evalModule pkgs {
