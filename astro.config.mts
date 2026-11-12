@@ -72,6 +72,11 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
+  image: {
+    layout: "constrained",
+    responsiveStyles: false,
+  },
+
   fonts: [
     {
       provider: fontProviders.local(),

@@ -65,24 +65,25 @@ const exifData = {
   }
 </script>
 
-<button onclick={"modal_click('" + dialogId + "');"}>
-  <Picture
-    src={resolvedImage}
-    alt={alt}
-    class="text-transparent rounded-md"
-    {...attrs}
-  />
-</button>
+<div
+  class="cursor-pointer leading-0 rounded-lg overflow-hidden text-transparent"
+  onclick={"modal_click('" + dialogId + "');"}
+>
+  <Picture src={resolvedImage} alt={alt} formats={["avif", "webp"]} />
+</div>
 
 <dialog id={dialogId} class="modal">
-  <div class="modal-box card bg-base-100 shadow-sm">
-    <OutLink href={fullSizeUrl}>
-      <Picture
-        src={resolvedImage}
-        alt={alt}
-        class="text-transparent rounded-md"
-        {...attrs}
-      />
+  <div class="modal-box p-10 card bg-base-100 shadow-sm">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <OutLink
+      class="leading-0 rounded-lg overflow-hidden text-transparent"
+      href={fullSizeUrl}
+    >
+      <Picture src={resolvedImage} alt={alt} formats={["avif", "webp"]} />
     </OutLink>
     <div class="card-body p-0 pt-6">
       <h2 class="card-title">{alt}</h2>
@@ -101,6 +102,6 @@ const exifData = {
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button>close</button>
+    <button class="cursor-auto">close</button>
   </form>
 </dialog>
