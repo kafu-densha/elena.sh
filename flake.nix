@@ -8,11 +8,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pnpm2nix = {
-      url = "github:FliegendeWurst/pnpm2nix-nzbr";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
   };
 
   outputs =
@@ -21,7 +16,6 @@
       nixpkgs,
       flake-utils,
       treefmt-nix,
-      pnpm2nix,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -29,7 +23,6 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            pnpm2nix.overlays.default
             (final: _prev: { prettier-plugin-astro = final.callPackage ./prettier-plugin-astro.nix { }; })
             (final: _prev: { prettier-plugin-svelte = final.callPackage ./prettier-plugin-svelte.nix { }; })
             (final: _prev: { "elena.sh" = final.callPackage ./default.nix { }; })

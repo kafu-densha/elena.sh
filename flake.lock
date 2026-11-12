@@ -31,34 +31,10 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst"
       }
     },
-    "pnpm2nix": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784968304,
-        "narHash": "sha256-NPXKyp40QNCk9r6kavSwqi/zv7OcLgrSRtPmHW+e74w=",
-        "owner": "FliegendeWurst",
-        "repo": "pnpm2nix-nzbr",
-        "rev": "9b15300b711a50bb96e553b66aad5cad94df9c7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "FliegendeWurst",
-        "repo": "pnpm2nix-nzbr",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "pnpm2nix": "pnpm2nix",
         "treefmt-nix": "treefmt-nix"
       }
     },
