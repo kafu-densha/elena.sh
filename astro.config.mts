@@ -62,6 +62,8 @@ function generateVariants(font: string, filter: FontDataFilter) {
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://elena.sh",
+
   integrations: [
     svelte({
       preprocess: vitePreprocess(),
